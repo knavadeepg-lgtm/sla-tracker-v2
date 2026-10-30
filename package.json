@@ -1,0 +1,21 @@
+{
+  "name": "sla-tracker",
+  "version": "1.0.0",
+  "description": "Customer Service SLA Tracker - student hackathon prototype (HACK-P368)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "seed": "node src/seed.js",
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chart.js": "^4.6.1",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^13.0.3"
+  }
+}

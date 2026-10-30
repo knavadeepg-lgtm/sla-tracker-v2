@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SLA Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>SLA Tracker</h1>
+  <nav id="nav">
+    <button data-view="dashboard" class="active">Dashboard</button>
+    <button data-view="tickets">Tickets</button>
+    <button data-view="new">New ticket</button>
+    <button data-view="policies">SLA policies</button>
+    <button data-view="esc">Escalations</button>
+  </nav>
+  <span class="flag">DEMO: synthetic data &middot; notifications simulated</span>
+</header>
+
+<main>
+  <section id="view-dashboard">
+    <div id="kpis" class="kpis"></div>
+    <div class="grid2">
+      <div class="card"><h3>Open tickets by agent</h3><div class="chart"><canvas id="chartWork"></canvas></div></div>
+      <div class="card"><h3>SLA health (all tickets)</h3><div class="chart"><canvas id="chartHealth"></canvas></div></div>
+    </div>
+    <div class="card">
+      <h3>Latest escalations <span class="sim">SIMULATED: no email is actually sent</span></h3>
+      <div id="dashEsc"></div>
+    </div>
+  </section>
+
+  <section id="view-tickets" hidden>
+    <form id="filters" class="card filters">
+      <label>Team <select name="team"><option value="">All</option><option>Billing</option><option>Technical</option><option>General</option></select></label>
+      <label>Priority <select name="priority" id="fPriority"><option value="">All</option></select></label>
+      <label>Status <select name="status" id="fStatus"><option value="">All</option></select></label>
+      <label>SLA <select name="sla"><option value="">All</option><option value="on_track">On track</option><option value="at_risk">At risk</option><option value="breached">Breached</option></select></label>
+      <label>Resolution due before <input type="datetime-local" name="dueBefore"></label>
+      <button type="submit">Apply</button>
+      <button type="reset" id="fReset" class="secondary">Clear</button>
+    </form>
+    <div class="card scroll">
+      <table id="ticketTable">
+        <thead><tr><th>#</th><th>Customer</th><th>Category</th><th>Priority</th><th>Status</th><th>Team / agent</th><th>SLA</th><th>Time left</th><th>Resolution due</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="view-new" hidden>
+    <form id="newForm" class="card form">
+      <h3>Create ticket</h3>
+      <p class="hint">Use synthetic customer references only. Do not enter real customer data.</p>
+      <label>Customer reference <input name="customer_ref" placeholder="CUST-0042" required maxlength="20"></label>
+      <label>Issue category <select name="category" id="nCategory"></select></label>
+      <label>Priority <select name="priority" id="nPriority"></select></label>
+      <label>Assign to <select name="agent_id" id="nAgent"><option value="">Unassigned</option></select></label>
+      <label>Description <textarea name="description" rows="4" required minlength="5" maxlength="500"></textarea></label>
+      <div class="hint">The creation timestamp is set automatically.</div>
+      <button type="submit">Create ticket</button>
+    </form>
+  </section>
+
+  <section id="view-policies" hidden>
+    <div class="card">
+      <h3>SLA policies (configurable)</h3>
+      <p class="hint">Changes apply to new tickets and future recalculations. Existing deadlines are not rewritten.</p>
+      <table id="policyTable"><thead><tr><th>Priority</th><th>First response (min)</th><th>Resolution (min)</th><th></th></tr></thead><tbody></tbody></table>
+    </div>
+  </section>
+
+  <section id="view-esc" hidden>
+    <div class="card">
+      <h3>Escalation log <span class="sim">SIMULATED: no email is actually sent</span></h3>
+      <button id="runEsc">Run escalation check now</button>
+      <button id="resetDemo" class="secondary">Reset demo data</button>
+      <div id="escList"></div>
+    </div>
+  </section>
+</main>
+
+<dialog id="detail"></dialog>
+<div id="toast" hidden></div>
+<script src="/vendor/chart.umd.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
