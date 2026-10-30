@@ -5,7 +5,7 @@ A service-ticket system that calculates response and resolution deadlines from c
 > **All data is synthetic.** Customer references like `CUST-0107` are fake. **Notifications are SIMULATED**: they are written to the database and shown in the UI, and no email is ever sent.
 
 ## Quick start
-Requires Node.js 18 or newer.
+Requires Node.js 22.5 or newer.
 
 ```bash
 npm install

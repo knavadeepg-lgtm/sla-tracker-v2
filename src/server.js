@@ -9,7 +9,7 @@ const { seed } = require('./seed');
 
 const CATEGORIES = ['Billing', 'Technical', 'Account', 'General'];
 const app = express();
-
+ app.set('trust proxy', 1);
 // Basic security: secure headers, body size limit, rate limiting, parameterised SQL, XSS-safe UI.
 app.use(helmet({ contentSecurityPolicy: { useDefaults: true, directives: { 'upgrade-insecure-requests': null } } }));
 app.use(express.json({ limit: '10kb' }));
